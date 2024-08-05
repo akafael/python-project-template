@@ -1,5 +1,6 @@
 import unittest
-import main
+from sample import main
+#import sample.main as main
 
 
 class TestDeepThought(unittest.TestCase):
