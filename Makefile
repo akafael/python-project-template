@@ -17,7 +17,7 @@ MAIN_SRC:= ${PROJECT_ROOT_DIR}/sample/main.py
 TEST_SRC:= ${PROJECT_ROOT_DIR}/test/test_main.py
 SETUP_FILE_PATH:= ${PROJECT_ROOT_DIR}/setup.py
 
-VIRTUALENV_DIR := .venv
+VIRTUALENV_PATH := ${PROJECT_ROOT_DIR}/.venv
 
 ###############################################################################
 # Rules
@@ -33,31 +33,32 @@ help:
 
 # Python Enviroment Preparation Rules ------------------------------------------
 
-${VIRTUALENV_DIR}: 
-	virtualenv ${VIRTUALENV_DIR}
-
 # Create Virtualenv
-.PHONY: virtualenv
-virtualenv:	${VIRTUALENV_DIR} ${VIRTUALENV_DIR}/bin/activate
+${VIRTUALENV_PATH}: 
+	virtualenv ${VIRTUALENV_PATH}
 
-# Install Module
+# Create and activate virtualenv enviroment
+.PHONY: virtualenv
+virtualenv: ${VIRTUALENV_PATH} ${VIRTUALENV_PATH}/bin/activate
+
+# Install Module inside virtual enviroment
 .PHONY: install 
 install: ${SETUP_FILE_PATH} ${MAIN_SRC} virtualenv
-	. "${VIRTUALENV_DIR}/bin/activate" && \
+	. "${VIRTUALENV_PATH}/bin/activate" && \
 	${PYTHON} ${SETUP_FILE_PATH} install
 
 # Python Rules -----------------------------------------------------------------
 
-# Run Program
+# Run Program inside virtual enviroment
 .PHONY: run
 run: ${MAIN_SRC} virtuaenv
-	. "${VIRTUALENV_DIR}/bin/activate" && \
+	. "${VIRTUALENV_PATH}/bin/activate" && \
 	${PYTHON} $<
 
 # Run unit tests
 .PHONY: test
 test: ${TEST_SRC} ${MAIN_SRC} install
-	. "${VIRTUALENV_DIR}/bin/activate" && \
+	. "${VIRTUALENV_PATH}/bin/activate" && \
 	${PYTHON} $<
 
 
