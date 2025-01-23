@@ -1,3 +1,5 @@
+[![Makefile CI](https://github.com/akafael/python-project-template/actions/workflows/makefile.yml/badge.svg)](https://github.com/akafael/python-project-template/actions/workflows/makefile.yml)
+
 # Python Project Template
 
 Python3 project template based on makefile.
